@@ -44,7 +44,7 @@ function prep_env_for_centos() {
   esac
 
   source /opt/gcc_env.sh
-  ln -sf $(pwd)/${GPDB_SRC_PATH}/gpAux/ext/${BLD_ARCH}/python-2.7.12 /opt/python-2.7.12
+  #ln -sf $(pwd)/${GPDB_SRC_PATH}/gpAux/ext/${BLD_ARCH}/python-2.7.12 /opt/python-2.7.12
   export PATH=${JAVA_HOME}/bin:${PATH}
 }
 
@@ -164,13 +164,13 @@ function _main() {
   generate_build_number
   
   # Copy input ext dir; assuming ext doesnt exist
-  mv gpAux_ext/ext ${GPDB_SRC_PATH}/gpAux
+  #mv gpAux_ext/ext ${GPDB_SRC_PATH}/gpAux
 
   # Copy .ant dir
-  mv gphdfs_dist/.ant /root/
-  mkdir -p ${GPDB_SRC_PATH}/gpAux/extensions/gphdfs/dist
-  mv gphdfs_dist/dist/*.jar ${GPDB_SRC_PATH}/gpAux/extensions/gphdfs/dist/
-  mv gphdfs_dist/dist/*.tar ${GPDB_SRC_PATH}/gpAux/extensions/gphdfs/
+  #mv gphdfs_dist/.ant /root/
+  #mkdir -p ${GPDB_SRC_PATH}/gpAux/extensions/gphdfs/dist
+  #mv gphdfs_dist/dist/*.jar ${GPDB_SRC_PATH}/gpAux/extensions/gphdfs/dist/
+  #mv gphdfs_dist/dist/*.tar ${GPDB_SRC_PATH}/gpAux/extensions/gphdfs/
 
 
   case "${TARGET_OS}" in
@@ -189,13 +189,13 @@ function _main() {
   # Copy gpaddon_src into gpAux/addon directory and set the ADDON_DIR
   # environment variable, so that quicklz support is available in enterprise
   # builds.
-  export ADDON_DIR=addon
+  #export ADDON_DIR=addon
   export CONFIGURE_FLAGS=${CONFIGURE_FLAGS}
   # We cannot symlink the addon directory here because `make -C` resolves the
   # symlink and `cd`s to the actual directory. Currently the Makefile in the
   # addon directory assumes that it is located in a particular location under
   # the source tree and hence needs to be copied over.
-  rsync -au gpaddon_src/ ${GPDB_SRC_PATH}/gpAux/${ADDON_DIR}
+  #rsync -au gpaddon_src/ ${GPDB_SRC_PATH}/gpAux/${ADDON_DIR}
   build_gpdb "${BLD_TARGET_OPTION[@]}"
   git_info
   build_gppkg
